@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
+import SignInButton from "./SignInButton";
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
       <Image src={"./logo.svg"} alt="logo" width={180} height={140} />
 
       <div>
-        <Button>Get Started</Button>
+        <SignInButton />
       </div>
     </div>
   );

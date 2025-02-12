@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import SignInButton from "./SignInButton";
 
 const Hero = () => {
   return (
@@ -17,7 +18,7 @@ const Hero = () => {
 
       <div className="flex gap-5 mt-6">
         <Button variant={"outline"}>Try Demo</Button>
-        <Button>Get Started</Button>
+        <SignInButton />
       </div>
 
       <Image
