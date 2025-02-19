@@ -45,7 +45,7 @@ const elementList = [
     label: "Text",
     textarea: "Sample Text",
     style: {
-      backgroundColor: "#fff",
+      // backgroundColor: "#fff",
       color: "#000000",
       padding: "10px",
       textAlign: "center",

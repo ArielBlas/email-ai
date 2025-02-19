@@ -2,6 +2,11 @@
 
 import { useDragElementLayout, useEmailTemplate } from "@/app/provider";
 import React, { useState } from "react";
+import ButtonComponent from "../custom/Element/ButtonComponent";
+import TextComponent from "../custom/Element/TextComponent";
+import ImageComponent from "../custom/Element/ImageComponent";
+import LogoComponent from "../custom/Element/LogoComponent";
+import DividerComponent from "../custom/Element/DividerComponent";
 
 const ColumnLayout = ({ layout }) => {
   const [dragOver, setDragOver] = useState(false);
@@ -29,7 +34,20 @@ const ColumnLayout = ({ layout }) => {
   };
 
   const GetElementComponent = (element) => {
-    return element.type;
+    switch (element?.type) {
+      case "Button":
+        return <ButtonComponent {...element} />;
+      case "Text":
+        return <TextComponent {...element} />;
+      case "Image":
+        return <ImageComponent {...element} />;
+      case "Logo":
+        return <LogoComponent {...element} />;
+      case "Divider":
+        return <DividerComponent {...element} />;
+      default:
+        return element.type;
+    }
   };
 
   return (
@@ -44,7 +62,8 @@ const ColumnLayout = ({ layout }) => {
         {Array.from({ length: layout.numOfCol }).map((_, index) => (
           <div
             key={index}
-            className={`p-2 flex items-center bg-gray-100 border border-dashed justify-center
+            className={`p-2 flex items-center
+               ${!layout?.[index]?.type && "bg-gray-100 border border-dashed"} justify-center
               ${index === dragOver?.index && dragOver?.columnId && "bg-green-100"}
               `}
             onDragOver={(event) => onDragOverHandler(event, index)}
