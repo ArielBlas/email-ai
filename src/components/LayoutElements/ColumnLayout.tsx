@@ -1,6 +1,10 @@
 "use client";
 
-import { useDragElementLayout, useEmailTemplate } from "@/app/provider";
+import {
+  useDragElementLayout,
+  useEmailTemplate,
+  useSelectedElement,
+} from "@/app/provider";
 import React, { useState } from "react";
 import ButtonComponent from "../custom/Element/ButtonComponent";
 import TextComponent from "../custom/Element/TextComponent";
@@ -12,6 +16,7 @@ const ColumnLayout = ({ layout }) => {
   const [dragOver, setDragOver] = useState(false);
   const { emailTemplate, setEmailTemplate } = useEmailTemplate();
   const { dragaElementLayout, setDragaElementLayout } = useDragElementLayout();
+  const { selectedELement, setSelectedElement } = useSelectedElement();
 
   const onDragOverHandler = (event, index) => {
     event.preventDefault();
@@ -62,12 +67,14 @@ const ColumnLayout = ({ layout }) => {
         {Array.from({ length: layout.numOfCol }).map((_, index) => (
           <div
             key={index}
-            className={`p-2 flex items-center
-               ${!layout?.[index]?.type && "bg-gray-100 border border-dashed"} justify-center
-              ${index === dragOver?.index && dragOver?.columnId && "bg-green-100"}
+            className={`p-2 flex items-center h-full w-full bg-white cursor-pointer
+              ${!layout?.[index]?.type && "bg-gray-100 border border-dashed"} justify-center
+              ${index === dragOver?.index && dragOver?.columnId ? "bg-green-100" : "bg-gray-100"}
+              ${selectedELement?.layout?.id == layout.id && selectedELement?.index == index && "border-blue-500 border"}
               `}
             onDragOver={(event) => onDragOverHandler(event, index)}
             onDrop={onDropHandler}
+            onClick={() => setSelectedElement({ layout, index })}
           >
             {GetElementComponent(layout?.[index]) ?? "Drag Element Here"}
           </div>

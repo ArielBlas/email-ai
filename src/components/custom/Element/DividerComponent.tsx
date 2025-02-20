@@ -3,7 +3,7 @@ import React from "react";
 const DividerComponent = ({ style }) => {
   return (
     <div>
-      <hr />
+      <hr style={style} />
     </div>
   );
 };
