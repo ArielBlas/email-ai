@@ -70,7 +70,7 @@ const ColumnLayout = ({ layout }) => {
             className={`p-2 flex items-center h-full w-full bg-white cursor-pointer
               ${!layout?.[index]?.type && "bg-gray-100 border border-dashed"} justify-center
               ${index === dragOver?.index && dragOver?.columnId ? "bg-green-100" : "bg-gray-100"}
-              ${selectedELement?.layout?.id == layout.id && selectedELement?.index == index && "border-blue-500 border"}
+              ${selectedELement?.layout?.id == layout.id && selectedELement?.index == index && "border-blue-500 border-2xs"}
               `}
             onDragOver={(event) => onDragOverHandler(event, index)}
             onDrop={onDropHandler}
