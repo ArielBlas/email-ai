@@ -2,7 +2,7 @@ import React from "react";
 
 const ColorPickerField = ({ label, value, onHandleStyleChange }) => {
   return (
-    <div>
+    <div className="grid">
       <label>{label}</label>
       <input
         type="color"

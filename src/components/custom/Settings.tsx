@@ -39,13 +39,20 @@ const Settings = () => {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
       {element?.content && (
         <InputField
           label={"Content"}
           value={element?.content}
-          onHandleInputChange={(value) => onHandleInputChange("content", vlaue)}
+          onHandleInputChange={(value) => onHandleInputChange("content", value)}
+        />
+      )}
+      {element?.url && (
+        <InputField
+          label={"Url"}
+          value={element?.url}
+          onHandleInputChange={(value) => onHandleInputChange("url", value)}
         />
       )}
       {element?.style?.backgroundColor && (
@@ -53,7 +60,7 @@ const Settings = () => {
           label="Background Color"
           value={element?.style?.backgroundColor}
           onHandleStyleChange={(value) =>
-            onHandleStyleChange("backgroundColor", vlaue)
+            onHandleStyleChange("backgroundColor", value)
           }
         />
       )}
