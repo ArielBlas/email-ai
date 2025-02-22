@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelectedElement } from "@/app/provider";
 import InputField from "./Settings/InputField";
+import ColorPickerField from "./Settings/ColorPickerField";
 
 const Settings = () => {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -20,6 +21,23 @@ const Settings = () => {
     setSelectedElement(updatedData);
   };
 
+  const onHandleStyleChange = (fieldName, value) => {
+    const updateElement = {
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          style: {
+            ...selectedElement?.layout[selectedElement?.index]?.style,
+            [fieldName]: value,
+          },
+        },
+      },
+    };
+    setSelectedElement(updateElement);
+  };
+
   return (
     <div className="p-5">
       <h2 className="font-bold text-xl">Settings</h2>
@@ -28,6 +46,15 @@ const Settings = () => {
           label={"Content"}
           value={element?.content}
           onHandleInputChange={(value) => onHandleInputChange("content", vlaue)}
+        />
+      )}
+      {element?.style?.backgroundColor && (
+        <ColorPickerField
+          label="Background Color"
+          value={element?.style?.backgroundColor}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("backgroundColor", vlaue)
+          }
         />
       )}
     </div>

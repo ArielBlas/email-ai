@@ -41,6 +41,21 @@ const Provider = ({ children }: { children: ReactNode }) => {
     }
   }, [emailTemplate]);
 
+  useEffect(() => {
+    if (selectedELement) {
+      let updatedEmailTemplates = [];
+      emailTemplate.forEach((item, index) => {
+        if (item.id === selectedELement?.layout?.id) {
+          updatedEmailTemplates?.push(selectedELement?.layout);
+        } else {
+          updatedEmailTemplates?.push(item);
+        }
+      });
+
+      setEmailTemplate(updatedEmailTemplates);
+    }
+  }, [selectedELement]);
+
   return (
     <ConvexProvider client={convex}>
       <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
