@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelectedElement } from "@/app/provider";
 import InputField from "./Settings/InputField";
 import ColorPickerField from "./Settings/ColorPickerField";
+import InputFieldStyle from "./Settings/InputFieldStyle";
 
 const Settings = () => {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -61,6 +62,23 @@ const Settings = () => {
           value={element?.style?.backgroundColor}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("backgroundColor", value)
+          }
+        />
+      )}
+      {element?.style?.color && (
+        <ColorPickerField
+          label="Text Color"
+          value={element?.style?.color}
+          onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
+        />
+      )}
+
+      {element?.style?.fontSize && (
+        <InputFieldStyle
+          label="Font Size"
+          value={element?.style?.fontSize}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("fontSize", value)
           }
         />
       )}
