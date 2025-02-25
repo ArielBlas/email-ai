@@ -82,6 +82,14 @@ const Settings = () => {
           }
         />
       )}
+
+      {element?.style?.padding && (
+        <InputFieldStyle
+          label="Padding"
+          value={element?.style?.padding}
+          onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
+        />
+      )}
     </div>
   );
 };
