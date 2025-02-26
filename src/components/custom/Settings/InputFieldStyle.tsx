@@ -19,9 +19,7 @@ const InputFieldStyle = ({
           value={formattedValue(value)}
           onChange={(e) => onHandleStyleChange(e.target.value + type)}
         />
-        <h2 className="p-1 bg-gray-100 rounded-r-lg -ml-2">
-          {type.toUpperCase()}
-        </h2>
+        <h2 className="p-1 bg-gray-100 rounded-r-lg -ml-2">{type}</h2>
       </div>
     </div>
   );
