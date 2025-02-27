@@ -6,6 +6,7 @@ import InputField from "./Settings/InputField";
 import ColorPickerField from "./Settings/ColorPickerField";
 import InputFieldStyle from "./Settings/InputFieldStyle";
 import SliderField from "./Settings/SliderField";
+import TextAreaField from "./Settings/TextAreaField";
 
 const Settings = () => {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -50,6 +51,17 @@ const Settings = () => {
           onHandleInputChange={(value) => onHandleInputChange("content", value)}
         />
       )}
+
+      {element?.textarea && (
+        <TextAreaField
+          label={"Text Area"}
+          value={element?.textarea}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("textarea", value)
+          }
+        />
+      )}
+
       {element?.url && (
         <InputField
           label={"Url"}
