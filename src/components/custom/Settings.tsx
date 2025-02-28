@@ -7,6 +7,23 @@ import ColorPickerField from "./Settings/ColorPickerField";
 import InputFieldStyle from "./Settings/InputFieldStyle";
 import SliderField from "./Settings/SliderField";
 import TextAreaField from "./Settings/TextAreaField";
+import ToggleGroupField from "./Settings/ToggleGroupField";
+import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
+
+const TextAlignOptions = [
+  {
+    value: "left",
+    icon: AlignLeft,
+  },
+  {
+    value: "center",
+    icon: AlignCenter,
+  },
+  {
+    value: "right",
+    icon: AlignRight,
+  },
+];
 
 const Settings = () => {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -120,6 +137,17 @@ const Settings = () => {
           value={element?.style?.borderRadius}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("borderRadius", value)
+          }
+        />
+      )}
+
+      {element?.style?.textAlign && (
+        <ToggleGroupField
+          label={"Text Align"}
+          value={element?.style?.textAlign}
+          options={TextAlignOptions}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("textAlign", value)
           }
         />
       )}
