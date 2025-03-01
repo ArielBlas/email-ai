@@ -11,7 +11,7 @@ const ToggleGroupField = ({ label, value, options, onHandleStyleChange }) => {
         onValueChange={(v) => onHandleStyleChange(v)}
       >
         {options.map((option, index) => (
-          <ToggleGroupItem key={index} value={option.value}>
+          <ToggleGroupItem key={index} value={option.value} className="w-full">
             <option.icon />
           </ToggleGroupItem>
         ))}
