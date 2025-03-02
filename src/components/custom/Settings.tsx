@@ -17,6 +17,7 @@ import {
   CaseUpper,
 } from "lucide-react";
 import DropdownField from "./Settings/DropdownField";
+import ImagePreview from "./Settings/ImagePreview";
 
 const TextAlignOptions = [
   {
@@ -84,6 +85,16 @@ const Settings = () => {
   return (
     <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
+      {element?.imageUrl && (
+        <ImagePreview
+          label={"Image Preview"}
+          value={element?.imageUrl}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("imageUrl", value)
+          }
+        />
+      )}
+
       {element?.content && (
         <InputField
           label={"Content"}
