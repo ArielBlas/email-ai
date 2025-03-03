@@ -82,6 +82,23 @@ const Settings = () => {
     setSelectedElement(updateElement);
   };
 
+  const onHandleOuterStyleChange = (fieldName, value) => {
+    const updateElement = {
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          outerStyle: {
+            ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
+            [fieldName]: value,
+          },
+        },
+      },
+    };
+    setSelectedElement(updateElement);
+  };
+
   return (
     <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
@@ -150,6 +167,7 @@ const Settings = () => {
           }
         />
       )}
+
       {element?.style?.color && (
         <ColorPickerField
           label="Text Color"
@@ -187,6 +205,14 @@ const Settings = () => {
         />
       )}
 
+      {element?.style?.margin && (
+        <InputFieldStyle
+          label="Margin"
+          value={element?.style?.margin}
+          onHandleStyleChange={(value) => onHandleStyleChange("margin", value)}
+        />
+      )}
+
       {element?.style?.borderRadius && (
         <SliderField
           label="Border Radius"
@@ -207,6 +233,30 @@ const Settings = () => {
           }
         />
       )}
+
+      <div>
+        <h2 className="font-bold mb-2">Outer Style</h2>
+        {element?.outerStyle?.backgroundColor && (
+          <ColorPickerField
+            label="Background Color"
+            value={element?.outerStyle?.backgroundColor}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("backgroundColor", value)
+            }
+          />
+        )}
+
+        {element?.outerStyle?.textAlign && (
+          <ToggleGroupField
+            label={"Text Align"}
+            value={element?.outerStyle?.textAlign}
+            options={TextAlignOptions}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("textAlign", value)
+            }
+          />
+        )}
+      </div>
     </div>
   );
 };
