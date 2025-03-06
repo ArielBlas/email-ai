@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   useDragElementLayout,
   useEmailTemplate,
@@ -8,12 +8,15 @@ import {
 } from "@/app/provider";
 import { Dice1 } from "lucide-react";
 import ColumnLayout from "../LayoutElements/ColumnLayout";
+import ViewHtmlDialog from "./ViewHtmlDialog";
 
-const Canvas = () => {
+const Canvas = ({ viewHTMLCode, closeDialog }) => {
+  const htmlRef = useRef(null);
   const { screenSize, setScreenSize } = useScreenSize();
   const { dragaElementLayout, setDragaElementLayout } = useDragElementLayout();
   const { emailTemplate, setEmailTemplate } = useEmailTemplate();
   const [dragOver, setDragOver] = useState(false);
+  const [htmlCode, setHtmlCode] = useState("");
 
   const onDragOver = (e) => {
     e.preventDefault();
@@ -33,6 +36,17 @@ const Canvas = () => {
     }
   };
 
+  useEffect(() => {
+    if (viewHTMLCode) getHTMLCode();
+  }, [viewHTMLCode]);
+
+  const getHTMLCode = () => {
+    if (htmlRef.current) {
+      const htmlContent = htmlRef.current.innerHTML;
+      setHtmlCode(htmlContent);
+    }
+  };
+
   return (
     <div className="mt-20 flex justify-center">
       <div
@@ -40,6 +54,7 @@ const Canvas = () => {
           ${dragOver && "bg-purple-100 p4"}`}
         onDragOver={onDragOver}
         onDrop={() => onDropHandler()}
+        ref={htmlRef}
       >
         {emailTemplate?.length > 0 ? (
           emailTemplate?.map((item, index) => (
@@ -51,6 +66,11 @@ const Canvas = () => {
           </h2>
         )}
       </div>
+      <ViewHtmlDialog
+        openDialog={viewHTMLCode}
+        htmlCode={htmlCode}
+        closeDialog={closeDialog}
+      />
     </div>
   );
 };
