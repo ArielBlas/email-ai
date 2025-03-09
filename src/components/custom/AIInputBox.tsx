@@ -1,11 +1,31 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import Prompt from "@/Data/Prompt";
 
 const AIInputBox = () => {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const onGenerate = async () => {
+    const PROMPT = Prompt.EMAIL_PROMPT + "\n" + userInput;
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/ai-email.generate", {
+        method: "POST",
+        body: {
+          prompt: PROMPT,
+        },
+      });
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="mt-5">
@@ -22,6 +42,7 @@ const AIInputBox = () => {
       <Button
         className="w-full mt-7"
         disabled={userInput.length == 0 || loading}
+        onClick={onGenerate}
       >
         GENERATE
       </Button>
