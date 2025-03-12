@@ -7,12 +7,15 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
 import { useUserDetail } from "@/app/provider";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/router";
 
 const AIInputBox = () => {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const SaveTemplate = useMutation(api.emailTemplate.SaveTemplate);
   const { userDetail } = useUserDetail();
+  const router = useRouter();
 
   const onGenerate = async () => {
     const PROMPT = Prompt.EMAIL_PROMPT + "\n" + userInput;
@@ -33,6 +36,7 @@ const AIInputBox = () => {
         email: userDetail.email,
       });
       console.log(res);
+      router.push(`/editor/${tid}`);
     } catch (e) {
       console.log(e);
     } finally {
@@ -57,7 +61,13 @@ const AIInputBox = () => {
         disabled={userInput.length == 0 || loading}
         onClick={onGenerate}
       >
-        GENERATE
+        {loading ? (
+          <span>
+            <Loader2 className="animate-spin" /> Please wait...
+          </span>
+        ) : (
+          "GENERATE"
+        )}
       </Button>
     </div>
   );
