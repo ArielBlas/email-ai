@@ -5,6 +5,7 @@ export const SaveTemplate = mutation({
   args: {
     tid: v.string(),
     design: v.any(),
+    description: v.any(),
     email: v.string(),
   },
   handler: async (ctx, args) => {
@@ -13,6 +14,7 @@ export const SaveTemplate = mutation({
         tid: args.tid,
         design: args.design,
         email: args.email,
+        description: args.description,
       });
 
       return result;

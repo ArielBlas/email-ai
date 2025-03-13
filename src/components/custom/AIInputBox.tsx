@@ -23,7 +23,7 @@ const AIInputBox = () => {
     setLoading(true);
 
     try {
-      const result = await fetch("/api/ai-email.generate", {
+      const result = await fetch("/api/ai-email-generate", {
         method: "POST",
         body: {
           prompt: PROMPT,
@@ -34,6 +34,7 @@ const AIInputBox = () => {
         design: result.data,
         prompt: PROMPT,
         email: userDetail.email,
+        description: userInput,
       });
       console.log(res);
       router.push(`/editor/${tid}`);
@@ -62,7 +63,7 @@ const AIInputBox = () => {
         onClick={onGenerate}
       >
         {loading ? (
-          <span>
+          <span className="flex gap-2">
             <Loader2 className="animate-spin" /> Please wait...
           </span>
         ) : (
