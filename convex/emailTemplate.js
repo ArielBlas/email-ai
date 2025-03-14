@@ -46,3 +46,25 @@ export const GetTemplateDesign = query({
     }
   },
 });
+
+export const UpdateTemplateDesign = mutation({
+  args: {
+    tid: v.string(),
+    design: v.any(),
+  },
+  handler: async (ctx, args) => {
+    try {
+      const result = await ctx.db
+        .query("emailTemplates")
+        .filter((q) => q.eq(q.field("tid"), args.tid))
+        .collect();
+      const docId = result[0].__docId;
+
+      await ctx.db.patch(docId, {
+        design: args.design,
+      });
+    } catch (e) {
+      return e;
+    }
+  },
+});
