@@ -8,6 +8,7 @@ import { useEmailTemplate, useScreenSize } from "@/app/provider";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 const EditorHeader = ({ viewHTMLCode }) => {
   const { screenSize, setScreenSize } = useScreenSize();
@@ -22,6 +23,7 @@ const EditorHeader = ({ viewHTMLCode }) => {
       tid: templateId,
       design: emailTemplate.design,
     });
+    toast("Email Template Saved Successfully!");
   };
 
   return (
