@@ -1,10 +1,26 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useConvex } from "convex/react";
+import { useUserDetail } from "@/app/provider";
+import { api } from "@/convex/_generated/api";
 
 const EmailTemplateList = () => {
   const [emailList, setEmailList] = useState([]);
+  const convex = useConvex();
+  const { userDetail, setUserDetail } = useUserDetail();
+
+  useEffect(() => {
+    if (userDetail) GetTemplateList();
+  }, [userDetail]);
+
+  const GetTemplateList = async () => {
+    const result = await convex.query(api.emailTemplate.GetAllUserTemplate, {
+      email: userDetail.email,
+    });
+    setEmailList(result);
+  };
 
   return (
     <div>
